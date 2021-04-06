@@ -1,0 +1,16 @@
+{
+  "name": "@examples/db-public",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "2.20.1"
+  },
+  "devDependencies": {
+    "prisma": "2.20.1"
+  }
+}
