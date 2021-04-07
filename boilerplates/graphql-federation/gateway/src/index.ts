@@ -5,7 +5,7 @@ import mercurius from 'mercurius';
   const app = fastify();
 
   app.register(mercurius, {
-    graphiql: 'playground',
+    graphiql: true,
     path: '/',
     gateway: {
       services: [
@@ -20,5 +20,5 @@ import mercurius from 'mercurius';
   const url = await app.listen(4000);
   console.log(`Gateway running at ${url}`);
 
-  console.log(`Playground accessible at ${url}/playground`);
+  console.log(`Graphiql accessible at ${url}/graphiql`);
 })();

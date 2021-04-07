@@ -8,7 +8,7 @@ import { schema } from './schema';
   const app = fastify();
 
   app.register(mercurius, {
-    graphiql: 'playground',
+    graphiql: true,
     context: configureContext,
     path: '/',
     schema
@@ -17,5 +17,5 @@ import { schema } from './schema';
   const url = await app.listen(4001);
   console.log(`Users service running at ${url}`);
 
-  console.log(`Playground accessible at ${url}/playground`);
+  console.log(`Graphiql accessible at ${url}/graphiql`);
 })();
