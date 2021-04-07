@@ -1,38 +1,20 @@
-import * as path from 'path';
-import { intArg, makeSchema, nonNull, objectType } from 'nexus';
+import { join } from 'path';
+import { makeSchema } from 'nexus';
 import { nexusPluginFederation, transformSchemaFederation } from 'nexus-federation-plugin';
 
-const args = {
-  x: nonNull(
-    intArg({
-      description: 'value of x'
-    })
-  ),
-  y: nonNull(
-    intArg({
-      description: 'value of y'
-    })
-  )
-};
-
-const Query = objectType({
-  name: 'Query',
-  definition(t) {
-    t.int('add', {
-      resolve(_, { x, y }) {
-        return x + y;
-      },
-      args
-    });
-  }
-});
+import { userTypes } from './user';
+import { scalarTypes } from './scalars';
 
 const unfederatedSchema = makeSchema({
-  types: [Query],
+  types: [...userTypes, ...scalarTypes],
   plugins: [nexusPluginFederation],
   outputs: {
-    schema: path.join(process.cwd(), 'generated', 'schema.gql'),
-    typegen: path.join(process.cwd(), 'node_modules', '@types', '_generated', 'index.d.ts')
+    schema: join(process.cwd(), 'generated', 'schema.gql'),
+    typegen: join(process.cwd(), 'node_modules', '@types', '_generated', 'index.d.ts')
+  },
+  contextType: {
+    module: require.resolve('../context.ts'),
+    export: 'Context'
   }
 });
 

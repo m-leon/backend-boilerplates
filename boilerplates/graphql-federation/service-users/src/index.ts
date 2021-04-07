@@ -1,6 +1,7 @@
 import fastify from 'fastify';
 import mercurius from 'mercurius';
 
+import { configureContext } from './context';
 import { schema } from './schema';
 
 (async () => {
@@ -8,6 +9,7 @@ import { schema } from './schema';
 
   app.register(mercurius, {
     graphiql: 'playground',
+    context: configureContext,
     path: '/',
     schema
   });
